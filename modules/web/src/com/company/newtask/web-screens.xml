@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
+    <include file="com/company/newtask/screens.xml"/>
+    <screen id="newtask$Contract.browse"
+            template="com/company/newtask/web/contract/contract-browse.xml"/>
+    <screen id="newtask$Contract.edit"
+            template="com/company/newtask/web/contract/contract-edit.xml"/>
+    <screen id="newtask$Stage.browse"
+            template="com/company/newtask/web/stage/stage-browse.xml"/>
+    <screen id="newtask$Stage.edit"
+            template="com/company/newtask/web/stage/stage-edit.xml"/>
+</screen-config>

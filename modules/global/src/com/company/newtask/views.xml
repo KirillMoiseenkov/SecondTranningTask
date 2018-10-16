@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="com.company.newtask.entity.Contract"
+          extends="_local"
+          name="contract-view"/>
+    <view class="com.company.newtask.entity.Stage"
+          extends="_local"
+          name="stage-view"/>
+    <view class="com.company.newtask.entity.Contract"
+          extends="_local"
+          name="contract-view_1">
+        <property name="stage"
+                  view="_minimal"/>
+        <property name="status"
+                  view="_minimal"/>
+    </view>
+</views>

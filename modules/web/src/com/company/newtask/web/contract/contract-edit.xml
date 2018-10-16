@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.company.newtask.web.contract.ContractEdit"
+        datasource="contractDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.company.newtask.web.contract">
+    <dsContext>
+        <datasource id="contractDs"
+                    class="com.company.newtask.entity.Contract"
+                    view="_local">
+            <collectionDatasource id="stageDs"
+                                  property="stage"/>
+        </datasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="scrollBox"
+            spacing="true">
+        <scrollBox id="scrollBox"
+                   spacing="true">
+            <fieldGroup id="fieldGroup"
+                        datasource="contractDs">
+                <column width="250px">
+                    <field property="customer"/>
+                    <field property="performer"/>
+                    <field property="number"/>
+                    <field property="singleDate"/>
+                    <field property="dateFrom"/>
+                    <field property="dateTo"/>
+                    <field property="amount"/>
+                    <field property="vat"/>
+                    <field property="totalAmount"/>
+                    <field property="customerSingle"/>
+                    <field property="performerSingle"/>
+                    <field property="file"/>
+                </column>
+            </fieldGroup>
+        </scrollBox>
+        <groupBox id="groupBox"
+                  spacing="true">
+            <table height="100px"
+                   width="488px">
+                <actions>
+                    <action id="create"/>
+                    <action id="edit"/>
+                    <action id="remove"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="dateFrom"/>
+                    <column id="dateTo"/>
+                    <column id="amount"/>
+                    <column id="vat"/>
+                    <column id="totalAmount"/>
+                    <column id="description"/>
+                </columns>
+                <rows datasource="stageDs"/>
+                <buttonsPanel>
+                    <button/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

@@ -1,0 +1,1 @@
+drop table NEWTASK_SERVICE_COMPLETION_CERTIFICATE_STAGE_LINK if exists cascade ;
