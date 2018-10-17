@@ -8,7 +8,7 @@
     <dsContext>
         <datasource id="contractDs"
                     class="com.company.newtask.entity.Contract"
-                    view="_local">
+                    view="contract-view_1">
             <collectionDatasource id="stageDs"
                                   property="stage"/>
         </datasource>
@@ -39,7 +39,8 @@
         </scrollBox>
         <groupBox id="groupBox"
                   spacing="true">
-            <table height="100px"
+            <table id="stageTable"
+                   height="300px"
                    width="488px">
                 <actions>
                     <action id="create"/>
@@ -57,7 +58,11 @@
                 </columns>
                 <rows datasource="stageDs"/>
                 <buttonsPanel>
-                    <button/>
+                    <buttonsPanel>
+                        <button action="stageTable.create"/>
+                        <button action="stageTable.edit"/>
+                        <button action="stageTable.remove"/>
+                    </buttonsPanel>
                 </buttonsPanel>
             </table>
         </groupBox>

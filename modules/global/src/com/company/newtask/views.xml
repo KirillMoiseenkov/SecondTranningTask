@@ -10,7 +10,7 @@
           extends="_local"
           name="contract-view_1">
         <property name="stage"
-                  view="_minimal"/>
+                  view="_local"/>
         <property name="status"
                   view="_minimal"/>
     </view>
