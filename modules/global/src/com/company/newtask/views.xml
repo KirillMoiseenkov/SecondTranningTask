@@ -10,8 +10,43 @@
           extends="_local"
           name="contract-view_1">
         <property name="stage"
-                  view="_local"/>
+                  view="_local">
+            <property name="invoice"
+                      view="_minimal"/>
+            <property name="serviceCompletionCertificate"
+                      view="_minimal"/>
+        </property>
         <property name="status"
                   view="_minimal"/>
+    </view>
+    <view class="com.company.newtask.entity.Invoice"
+          extends="_local"
+          name="invoice-view">
+        <property name="stage"
+                  view="_minimal"/>
+    </view>
+    <view class="com.company.newtask.entity.ServiceCompletionCertificate"
+          extends="_local"
+          name="serviceCompletionCertificate-view">
+        <property name="stage"
+                  view="_minimal"/>
+    </view>
+    <view class="com.company.newtask.entity.Stage"
+          extends="stage-view"
+          name="stage-edit">
+        <property name="contract"
+                  view="_minimal"/>
+        <property name="invoice"
+                  view="_minimal"/>
+        <property name="serviceCompletionCertificate"
+                  view="_minimal">
+            <property name="stage"
+                      view="_minimal">
+                <property name="invoice"
+                          view="_minimal"/>
+                <property name="serviceCompletionCertificate"
+                          view="_minimal"/>
+            </property>
+        </property>
     </view>
 </views>

@@ -1,10 +1,13 @@
 package com.company.newtask.web.contract;
 
+import com.company.newtask.entity.ServiceCompletionCertificate;
 import com.company.newtask.entity.Stage;
 import com.company.newtask.service.VatService;
+import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.company.newtask.entity.Contract;
 import com.haulmont.cuba.gui.components.Component;
+import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.Datasource;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
@@ -21,7 +24,16 @@ public class ContractEdit extends AbstractEditor<Contract> {
     private Datasource<Contract> contractDs;
 
     @Inject
+    private CollectionDatasource<Stage, UUID> stageDs;
+
+    @Inject
     private VatService vatService;
+
+    @Inject
+    private Metadata metadata;
+
+    @Inject
+    private Table<Stage> stageTable;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -40,18 +52,29 @@ public class ContractEdit extends AbstractEditor<Contract> {
 
 
         if(getItem().getStage().isEmpty()){
-            ArrayList<Stage> stages = new ArrayList<>();
-
-            Stage stage = new Stage();
+            Stage stage = metadata.create(Stage.class);
             stage.setName("Дефолтный этап");
+            stage.setContract(getItem());
+            //stage.setDateFrom(getItem().getDateFrom());
+         //           stage.setDateTo(getItem().getDateTo());
+   //         stage.setAmount(getItem().getAmount());
+  //          stages.add(stage);
 
-            stage.setDateFrom(getItem().getDateFrom());
-            stage.setDateTo(getItem().getDateTo());
-            stage.setAmount(getItem().getAmount());
-            stages.add(stage);
-            getItem().setStage(stages);
+            stageDs.addItem(stage);
+
+
+            //stageDs.getItems().stream().forEach(i-> i.);
         }
 
         return super.postCommit(committed, close);
     }
+
+    public void sayGAF(){
+
+        ServiceCompletionCertificate serviceCompletionCertificate = metadata.create(ServiceCompletionCertificate.class);
+        serviceCompletionCertificate.setNumber(123);
+        serviceCompletionCertificate.setStage(stageTable.getSelected().iterator().next());
+        stageTable.getSelected().iterator().next().setServiceCompletionCertificate(serviceCompletionCertificate);
+    }
+
 }

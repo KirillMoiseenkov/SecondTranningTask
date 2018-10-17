@@ -9,4 +9,12 @@
             template="com/company/newtask/web/stage/stage-browse.xml"/>
     <screen id="newtask$Stage.edit"
             template="com/company/newtask/web/stage/stage-edit.xml"/>
+    <screen id="newtask$Invoice.browse"
+            template="com/company/newtask/web/invoice/invoice-browse.xml"/>
+    <screen id="newtask$Invoice.edit"
+            template="com/company/newtask/web/invoice/invoice-edit.xml"/>
+    <screen id="newtask$ServiceCompletionCertificate.browse"
+            template="com/company/newtask/web/servicecompletioncertificate/service-completion-certificate-browse.xml"/>
+    <screen id="newtask$ServiceCompletionCertificate.edit"
+            template="com/company/newtask/web/servicecompletioncertificate/service-completion-certificate-edit.xml"/>
 </screen-config>

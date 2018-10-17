@@ -40,12 +40,14 @@
         <groupBox id="groupBox"
                   spacing="true">
             <table id="stageTable"
-                   height="300px"
+                   height="200px"
                    width="488px">
                 <actions>
                     <action id="create"/>
                     <action id="edit"/>
                     <action id="remove"/>
+                    <action id="generateCertificateAndInoviceAction"
+                            invoke="sayGAF"/>
                 </actions>
                 <columns>
                     <column id="name"/>
@@ -62,6 +64,9 @@
                         <button action="stageTable.create"/>
                         <button action="stageTable.edit"/>
                         <button action="stageTable.remove"/>
+                        <button id="generateDoc"
+                                action="stageTable.generateCertificateAndInoviceAction"
+                                caption="Generate Document"/>
                     </buttonsPanel>
                 </buttonsPanel>
             </table>

@@ -4,5 +4,7 @@
           insertBefore="administration">
         <item screen="newtask$Contract.browse"/>
         <item screen="newtask$Stage.browse"/>
+        <item screen="newtask$Invoice.browse"/>
+        <item screen="newtask$ServiceCompletionCertificate.browse"/>
     </menu>
 </menu-config>

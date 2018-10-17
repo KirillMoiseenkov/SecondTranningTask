@@ -8,7 +8,10 @@
     <dsContext>
         <datasource id="stageDs"
                     class="com.company.newtask.entity.Stage"
-                    view="_local"/>
+                    view="stage-edit">
+            <datasource id="serviceCompletionCertificateDs"
+                        property="serviceCompletionCertificate"/>
+        </datasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -24,6 +27,7 @@
                 <field property="vat"/>
                 <field property="totalAmount"/>
                 <field property="description"/>
+                <field property="serviceCompletionCertificate"/>
             </column>
         </fieldGroup>
         <frame id="windowActions"
