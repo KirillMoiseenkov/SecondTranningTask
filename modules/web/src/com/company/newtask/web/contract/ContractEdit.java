@@ -1,10 +1,12 @@
 package com.company.newtask.web.contract;
 
+import com.company.newtask.entity.Invoice;
 import com.company.newtask.entity.ServiceCompletionCertificate;
 import com.company.newtask.entity.Stage;
 import com.company.newtask.service.VatService;
 import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.gui.app.core.file.FileDownloadHelper;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.company.newtask.entity.Contract;
 import com.haulmont.cuba.gui.components.Component;
@@ -21,7 +23,7 @@ import java.util.UUID;
 
 public class ContractEdit extends AbstractEditor<Contract> {
 
-    private static final String PROCESS_CODE = "approval";
+    private static final String PROCESS_CODE = "copyOfApproval";
 
     @Inject
     private Datasource<Contract> contractDs;
@@ -41,6 +43,7 @@ public class ContractEdit extends AbstractEditor<Contract> {
     @Inject
     private ProcActionsFrame procActionsFrame;
 
+
     @Override
     public void init(Map<String, Object> params) {
         super.init(params);
@@ -52,6 +55,18 @@ public class ContractEdit extends AbstractEditor<Contract> {
         });
     }
 
+    @Override
+    protected void initNewItem(Contract item) {
+        super.initNewItem(item);
+
+        item.setState("New");
+    }
+
+    @Override
+    protected void postInit() {
+        super.postInit();
+        initProcActionsFrame();
+    }
 
     @Override
     protected boolean preCommit() {
@@ -66,17 +81,25 @@ public class ContractEdit extends AbstractEditor<Contract> {
         return super.preCommit();
     }
 
+
+
     public void sayGAF(){
+
+        Stage stage = stageTable.getSelected().iterator().next();
 
         ServiceCompletionCertificate serviceCompletionCertificate = metadata.create(ServiceCompletionCertificate.class);
         serviceCompletionCertificate.setNumber(123);
-        serviceCompletionCertificate.setStage(stageTable.getSelected().iterator().next());
-        stageTable.getSelected().iterator().next().setServiceCompletionCertificate(serviceCompletionCertificate);
-    }
+        serviceCompletionCertificate.setStage(stage);
 
-    @Override
-    protected void postInit() {
-        initProcActionsFrame();
+        Invoice invoice = metadata.create(Invoice.class);
+        invoice.setNumber(123);
+        invoice.setStage(stage);
+
+
+       stage.setServiceCompletionCertificate(serviceCompletionCertificate);
+       stage.setInvoice(invoice);
+
+
     }
 
     private void initProcActionsFrame() {

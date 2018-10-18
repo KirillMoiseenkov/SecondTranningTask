@@ -72,9 +72,12 @@
             </table>
         </groupBox>
         <groupBox id="procActionsBox"
-                  spacing="true">
+                  caption="msg://process"
+                  orientation="vertical"
+                  spacing="true"
+                  width="AUTO">
             <frame id="procActionsFrame"
-            screen="procActionsFrame"/>
+                   screen="procActionsFrame"/>
         </groupBox>
         <frame id="windowActions"
                screen="editWindowActions"/>
