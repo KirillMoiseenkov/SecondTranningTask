@@ -71,6 +71,11 @@
                 </buttonsPanel>
             </table>
         </groupBox>
+        <groupBox id="procActionsBox"
+                  spacing="true">
+            <frame id="procActionsFrame"
+            screen="procActionsFrame"/>
+        </groupBox>
         <frame id="windowActions"
                screen="editWindowActions"/>
     </layout>

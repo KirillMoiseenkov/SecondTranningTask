@@ -29,6 +29,9 @@ public class Contract extends StandardEntity {
     @Column(name = "CUSTOMER")
     protected String customer;
 
+    @Column(name = "STATE")
+    protected String state;
+
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "contract")
@@ -77,6 +80,15 @@ public class Contract extends StandardEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STATUS_ID")
     protected Status status;
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getState() {
+        return state;
+    }
+
 
     public Boolean getVat() {
         return vat;

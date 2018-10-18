@@ -46,6 +46,7 @@ create table NEWTASK_CONTRACT (
     DELETED_BY varchar(50),
     --
     CUSTOMER varchar(255),
+    STATE varchar(255),
     ORGANIZATION_ID varchar(36),
     PERFORMER varchar(255),
     NUMBER_ integer,

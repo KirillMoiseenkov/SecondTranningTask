@@ -3,6 +3,7 @@ package com.company.newtask.web.contract;
 import com.company.newtask.entity.ServiceCompletionCertificate;
 import com.company.newtask.entity.Stage;
 import com.company.newtask.service.VatService;
+import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.company.newtask.entity.Contract;
@@ -20,6 +21,8 @@ import java.util.UUID;
 
 public class ContractEdit extends AbstractEditor<Contract> {
 
+    private static final String PROCESS_CODE = "approval";
+
     @Inject
     private Datasource<Contract> contractDs;
 
@@ -35,6 +38,9 @@ public class ContractEdit extends AbstractEditor<Contract> {
     @Inject
     private Table<Stage> stageTable;
 
+    @Inject
+    private ProcActionsFrame procActionsFrame;
+
     @Override
     public void init(Map<String, Object> params) {
         super.init(params);
@@ -46,27 +52,18 @@ public class ContractEdit extends AbstractEditor<Contract> {
         });
     }
 
+
     @Override
-    protected boolean postCommit(boolean committed, boolean close) {
+    protected boolean preCommit() {
 
-
-
-        if(getItem().getStage().isEmpty()){
+        if(getItem().getStage() == null){
             Stage stage = metadata.create(Stage.class);
             stage.setName("Дефолтный этап");
             stage.setContract(getItem());
-            //stage.setDateFrom(getItem().getDateFrom());
-         //           stage.setDateTo(getItem().getDateTo());
-   //         stage.setAmount(getItem().getAmount());
-  //          stages.add(stage);
-
             stageDs.addItem(stage);
-
-
-            //stageDs.getItems().stream().forEach(i-> i.);
         }
 
-        return super.postCommit(committed, close);
+        return super.preCommit();
     }
 
     public void sayGAF(){
@@ -75,6 +72,26 @@ public class ContractEdit extends AbstractEditor<Contract> {
         serviceCompletionCertificate.setNumber(123);
         serviceCompletionCertificate.setStage(stageTable.getSelected().iterator().next());
         stageTable.getSelected().iterator().next().setServiceCompletionCertificate(serviceCompletionCertificate);
+    }
+
+    @Override
+    protected void postInit() {
+        initProcActionsFrame();
+    }
+
+    private void initProcActionsFrame() {
+        procActionsFrame.initializer()
+                .setBeforeStartProcessPredicate(this::commit)
+                .setAfterStartProcessListener(() -> {
+                    showNotification(getMessage("processStarted"), NotificationType.HUMANIZED);
+                    close(COMMIT_ACTION_ID);
+                })
+                .setBeforeCompleteTaskPredicate(this::commit)
+                .setAfterCompleteTaskListener(() -> {
+                    showNotification(getMessage("taskCompleted"), NotificationType.HUMANIZED);
+                    close(COMMIT_ACTION_ID);
+                })
+                .init(PROCESS_CODE, getItem());
     }
 
 }
