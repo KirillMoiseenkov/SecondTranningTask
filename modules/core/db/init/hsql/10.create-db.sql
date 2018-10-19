@@ -58,7 +58,6 @@ create table NEWTASK_CONTRACT (
     TOTAL_AMOUNT integer,
     CUSTOMER_SINGLE varchar(255),
     PERFORMER_SINGLE varchar(255),
-    FILE_ varchar(255),
     STATUS_ID varchar(36),
     --
     primary key (ID)
@@ -105,7 +104,6 @@ create table NEWTASK_SERVICE_COMPLETION_CERTIFICATE (
     VAT integer,
     TOTAL_AMOUNT integer,
     DESCRIPTION varchar(255),
-    FILES varchar(255),
     STAGE_ID varchar(36),
     --
     primary key (ID)
@@ -128,9 +126,29 @@ create table NEWTASK_INVOICE (
     VAT integer,
     TOTAL_AMOUNT integer,
     DESCRIPTION varchar(255),
-    FILE_ varchar(255),
     STAGE_ID varchar(36),
     --
     primary key (ID)
 )^
 -- end NEWTASK_INVOICE
+-- begin NEWTASK_CONTRACT_FILE_DESCRIPTOR_LINK
+create table NEWTASK_CONTRACT_FILE_DESCRIPTOR_LINK (
+    CONTRACT_ID varchar(36) not null,
+    FILE_DESCRIPTOR_ID varchar(36) not null,
+    primary key (CONTRACT_ID, FILE_DESCRIPTOR_ID)
+)^
+-- end NEWTASK_CONTRACT_FILE_DESCRIPTOR_LINK
+-- begin NEWTASK_SERVICE_COMPLETION_CERTIFICATE_FILE_DESCRIPTOR_LINK
+create table NEWTASK_SERVICE_COMPLETION_CERTIFICATE_FILE_DESCRIPTOR_LINK (
+    SERVICE_COMPLETION_CERTIFICATE_ID varchar(36) not null,
+    FILE_DESCRIPTOR_ID varchar(36) not null,
+    primary key (SERVICE_COMPLETION_CERTIFICATE_ID, FILE_DESCRIPTOR_ID)
+)^
+-- end NEWTASK_SERVICE_COMPLETION_CERTIFICATE_FILE_DESCRIPTOR_LINK
+-- begin NEWTASK_INVOICE_FILE_DESCRIPTOR_LINK
+create table NEWTASK_INVOICE_FILE_DESCRIPTOR_LINK (
+    INVOICE_ID varchar(36) not null,
+    FILE_DESCRIPTOR_ID varchar(36) not null,
+    primary key (INVOICE_ID, FILE_DESCRIPTOR_ID)
+)^
+-- end NEWTASK_INVOICE_FILE_DESCRIPTOR_LINK

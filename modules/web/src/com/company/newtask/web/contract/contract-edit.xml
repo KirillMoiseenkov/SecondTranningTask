@@ -11,7 +11,15 @@
                     view="contract-view_1">
             <collectionDatasource id="stageDs"
                                   property="stage"/>
+            <collectionDatasource id="fileDs"
+                                  property="file"/>
         </datasource>
+        <collectionDatasource id="fileDescriptorsDs"
+                              class="com.haulmont.cuba.core.entity.FileDescriptor">
+            <query>
+                <![CDATA[select e from sys$FileDescriptor e]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -33,7 +41,6 @@
                     <field property="totalAmount"/>
                     <field property="customerSingle"/>
                     <field property="performerSingle"/>
-                    <field property="file"/>
                 </column>
             </fieldGroup>
         </scrollBox>
@@ -71,13 +78,28 @@
                 </buttonsPanel>
             </table>
         </groupBox>
+        <groupBox spacing="true">
+            <multiUpload id="multiUploadField"
+                         caption="msg://upload"/>
+            <table height="100px"
+                   width="488px">
+                <columns>
+                    <column id="name"/>
+                    <column id="extension"/>
+                    <column id="size"/>
+                    <column id="createDate"/>
+                </columns>
+                <rows datasource="fileDescriptorsDs"/>
+            </table>
+        </groupBox>
         <groupBox id="procActionsBox"
                   caption="msg://process"
                   orientation="vertical"
                   spacing="true"
                   width="AUTO">
             <frame id="procActionsFrame"
-                   screen="procActionsFrame"/>
+                   screen="procActionsFrame"
+                   width="200px"/>
         </groupBox>
         <frame id="windowActions"
                screen="editWindowActions"/>

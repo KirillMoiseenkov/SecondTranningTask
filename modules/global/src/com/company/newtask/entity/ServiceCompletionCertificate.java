@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import com.haulmont.cuba.core.entity.FileDescriptor;
+import javax.persistence.ManyToOne;
 
 @NamePattern("%s|number")
 @Table(name = "NEWTASK_SERVICE_COMPLETION_CERTIFICATE")
@@ -23,6 +25,12 @@ public class ServiceCompletionCertificate extends StandardEntity {
 
     @Column(name = "NUMBER_")
     protected Integer number;
+
+    @JoinTable(name = "NEWTASK_SERVICE_COMPLETION_CERTIFICATE_FILE_DESCRIPTOR_LINK",
+        joinColumns = @JoinColumn(name = "SERVICE_COMPLETION_CERTIFICATE_ID"),
+        inverseJoinColumns = @JoinColumn(name = "FILE_DESCRIPTOR_ID"))
+    @ManyToMany
+    protected List<FileDescriptor> file;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_")
@@ -40,13 +48,21 @@ public class ServiceCompletionCertificate extends StandardEntity {
     @Column(name = "DESCRIPTION")
     protected String description;
 
-    @Column(name = "FILES")
-    protected String files;
-
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STAGE_ID")
     protected Stage stage;
+
+
+
+    public void setFile(List<FileDescriptor> file) {
+        this.file = file;
+    }
+
+    public List<FileDescriptor> getFile() {
+        return file;
+    }
+
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -103,14 +119,6 @@ public class ServiceCompletionCertificate extends StandardEntity {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setFiles(String files) {
-        this.files = files;
-    }
-
-    public String getFiles() {
-        return files;
     }
 
 

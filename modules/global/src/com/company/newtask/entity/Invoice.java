@@ -14,6 +14,8 @@ import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.chile.core.annotations.NamePattern;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import com.haulmont.cuba.core.entity.FileDescriptor;
+import javax.persistence.ManyToOne;
 
 @NamePattern("%s|number")
 @Table(name = "NEWTASK_INVOICE")
@@ -23,6 +25,12 @@ public class Invoice extends StandardEntity {
 
     @Column(name = "NUMBER_")
     protected Integer number;
+
+    @JoinTable(name = "NEWTASK_INVOICE_FILE_DESCRIPTOR_LINK",
+        joinColumns = @JoinColumn(name = "INVOICE_ID"),
+        inverseJoinColumns = @JoinColumn(name = "FILE_DESCRIPTOR_ID"))
+    @ManyToMany
+    protected List<FileDescriptor> file;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_")
@@ -40,13 +48,21 @@ public class Invoice extends StandardEntity {
     @Column(name = "DESCRIPTION")
     protected String description;
 
-    @Column(name = "FILE_")
-    protected String file;
-
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STAGE_ID")
     protected Stage stage;
+
+
+
+    public void setFile(List<FileDescriptor> file) {
+        this.file = file;
+    }
+
+    public List<FileDescriptor> getFile() {
+        return file;
+    }
+
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -103,14 +119,6 @@ public class Invoice extends StandardEntity {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
-
-    public String getFile() {
-        return file;
     }
 
 

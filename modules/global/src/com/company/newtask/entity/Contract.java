@@ -19,6 +19,7 @@ import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import com.haulmont.cuba.core.entity.FileDescriptor;
 
 @NamePattern("%s|customer")
 @Table(name = "NEWTASK_CONTRACT")
@@ -28,6 +29,12 @@ public class Contract extends StandardEntity {
 
     @Column(name = "CUSTOMER")
     protected String customer;
+
+    @JoinTable(name = "NEWTASK_CONTRACT_FILE_DESCRIPTOR_LINK",
+        joinColumns = @JoinColumn(name = "CONTRACT_ID"),
+        inverseJoinColumns = @JoinColumn(name = "FILE_DESCRIPTOR_ID"))
+    @ManyToMany
+    protected List<FileDescriptor> file;
 
     @Column(name = "STATE")
     protected String state;
@@ -74,12 +81,20 @@ public class Contract extends StandardEntity {
     @Column(name = "PERFORMER_SINGLE")
     protected String performerSingle;
 
-    @Column(name = "FILE_")
-    protected String file;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STATUS_ID")
     protected Status status;
+
+
+
+    public void setFile(List<FileDescriptor> file) {
+        this.file = file;
+    }
+
+    public List<FileDescriptor> getFile() {
+        return file;
+    }
+
 
     public void setState(String state) {
         this.state = state;
@@ -206,14 +221,6 @@ public class Contract extends StandardEntity {
 
     public String getPerformerSingle() {
         return performerSingle;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
-
-    public String getFile() {
-        return file;
     }
 
 

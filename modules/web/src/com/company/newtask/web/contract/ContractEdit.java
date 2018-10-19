@@ -5,14 +5,17 @@ import com.company.newtask.entity.ServiceCompletionCertificate;
 import com.company.newtask.entity.Stage;
 import com.company.newtask.service.VatService;
 import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
+import com.haulmont.cuba.core.entity.FileDescriptor;
+import com.haulmont.cuba.core.global.FileLoader;
+import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.app.core.file.FileDownloadHelper;
-import com.haulmont.cuba.gui.components.AbstractEditor;
+import com.haulmont.cuba.gui.components.*;
 import com.company.newtask.entity.Contract;
-import com.haulmont.cuba.gui.components.Component;
-import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
+import com.haulmont.cuba.gui.data.DataSupplier;
 import com.haulmont.cuba.gui.data.Datasource;
+import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import javax.inject.Inject;
@@ -44,6 +47,13 @@ public class ContractEdit extends AbstractEditor<Contract> {
     private ProcActionsFrame procActionsFrame;
 
 
+    @Inject
+    private FileMultiUploadField multiUploadField;
+    @Inject
+    private FileUploadingAPI fileUploadingAPI;
+    @Inject
+    private DataSupplier dataSupplier;
+
     @Override
     public void init(Map<String, Object> params) {
         super.init(params);
@@ -53,6 +63,30 @@ public class ContractEdit extends AbstractEditor<Contract> {
                 getItem().setTotalAmount(vatService.getTotalAmount(getItem().getAmount()));
             }
         });
+
+        multiUploadField.addQueueUploadCompleteListener(() -> {
+            for (Map.Entry<UUID, String> entry : multiUploadField.getUploadsMap().entrySet()) {
+                UUID fileId = entry.getKey();
+                String fileName = entry.getValue();
+                FileDescriptor fd = fileUploadingAPI.getFileDescriptor(fileId, fileName);
+                // save file to FileStorage
+                try {
+                    fileUploadingAPI.putFileIntoStorage(fileId, fd);
+                } catch (FileStorageException e) {
+                    new RuntimeException("Error saving file to FileStorage", e);
+                }
+                // save file descriptor to database
+                dataSupplier.commit(fd);
+            }
+            showNotification("Uploaded files: " + multiUploadField.getUploadsMap().values(), NotificationType.HUMANIZED);
+            multiUploadField.clearUploads();
+        });
+
+        multiUploadField.addFileUploadErrorListener(event ->
+                showNotification("File upload error", NotificationType.HUMANIZED));
+
+
+
     }
 
     @Override

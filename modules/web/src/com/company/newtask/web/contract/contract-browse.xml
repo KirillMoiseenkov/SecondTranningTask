@@ -42,9 +42,9 @@
                 <column id="totalAmount"/>
                 <column id="customerSingle"/>
                 <column id="performerSingle"/>
-                <column id="file"/>
                 <column id="status"/>
                 <column id="state"/>
+                <column id="file"/>
             </columns>
             <rows datasource="contractsDs"/>
             <rowsCount/>
