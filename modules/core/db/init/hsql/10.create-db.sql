@@ -13,6 +13,7 @@ create table NEWTASK_ORGANIZATION (
     TAX_NUMBER integer,
     REGISTRATION_NUMBER integer,
     ESCAPE_VAT integer,
+    CONTRACT_ID varchar(36),
     --
     primary key (ID)
 )^

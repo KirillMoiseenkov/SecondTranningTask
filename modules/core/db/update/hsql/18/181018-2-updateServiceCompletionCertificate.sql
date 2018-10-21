@@ -1,0 +1,2 @@
+alter table NEWTASK_SERVICE_COMPLETION_CERTIFICATE add column FILES_ID varchar(36) ;
+alter table NEWTASK_SERVICE_COMPLETION_CERTIFICATE drop column FILES cascade ;

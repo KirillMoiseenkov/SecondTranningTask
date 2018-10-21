@@ -5,6 +5,9 @@ import javax.persistence.Table;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import javax.persistence.Column;
 import com.haulmont.chile.core.annotations.NamePattern;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @NamePattern("%s|name")
 @Table(name = "NEWTASK_ORGANIZATION")
@@ -23,6 +26,19 @@ public class Organization extends StandardEntity {
 
     @Column(name = "ESCAPE_VAT")
     protected Integer escapeVAT;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CONTRACT_ID")
+    protected Contract contract;
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
 
     public void setName(String name) {
         this.name = name;

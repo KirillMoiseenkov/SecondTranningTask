@@ -45,7 +45,7 @@ public class ApprovalEmailBean {
          String toEmail = procActor.getUser().getEmail();
            EmailInfo emailInfo = new EmailInfo("moiseenkov@haulmont.com" /*should be toEmail*/, "Change status",
                    emailConfig.getExFromAddress(), "Change status");
-
+            
            emailService.sendEmailAsync(emailInfo);
        });
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.company.newtask.web.servicecompletioncertificate.ServiceCompletionCertificateEdit"
+        datasource="serviceCompletionCertificateDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.company.newtask.web.servicecompletioncertificate">
+    <dsContext>
+        <datasource id="serviceCompletionCertificateDs"
+                    class="com.company.newtask.entity.ServiceCompletionCertificate"
+                    view="serviceCompletionCertificate-view"/>
+        <collectionDatasource id="fileDescriptorsDs"
+                              class="com.haulmont.cuba.core.entity.FileDescriptor">
+            <query>
+                <![CDATA[select e from sys$FileDescriptor e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="serviceCompletionCertificateDs">
+            <column width="250px">
+                <field property="number"/>
+                <field property="date"/>
+                <field property="amount"/>
+                <field property="vat"/>
+                <field property="totalAmount"/>
+                <field property="description"/>
+                <field property="stage"/>
+            </column>
+        </fieldGroup>
+        <groupBox spacing="true">
+            <multiUpload id="multiUploadField"
+                         caption="msg://upload"/>
+            <table height="151px"
+                   width="528px">
+                <columns>
+                    <column id="name"/>
+                    <column id="extension"/>
+                    <column id="size"/>
+                    <column id="createDate"/>
+                </columns>
+                <rows datasource="fileDescriptorsDs"/>
+            </table>
+        </groupBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>
