@@ -4,7 +4,8 @@
         class="com.company.newtask.web.contract.ContractBrowse"
         focusComponent="contractsTable"
         lookupComponent="contractsTable"
-        messagesPack="com.company.newtask.web.contract">
+        messagesPack="com.company.newtask.web.contract"
+        xmlns:chart="http://schemas.haulmont.com/charts/charts.xsd">
     <dsContext>
         <groupDatasource id="contractsDs"
                          class="com.company.newtask.entity.Contract"
@@ -18,6 +19,12 @@
                 width="800"/>
     <layout expand="contractsTable"
             spacing="true">
+        <chart:pieChart id="pieChart"
+                        datasource="contractsDs"
+                        height="350px"
+                        titleField="totalAmount"
+                        valueField="amount"
+                        width="1035px"/>
         <filter id="filter"
                 applyTo="contractsTable"
                 datasource="contractsDs">

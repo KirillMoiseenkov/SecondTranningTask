@@ -5,6 +5,7 @@ import com.company.newtask.entity.ServiceCompletionCertificate;
 import com.company.newtask.entity.Stage;
 import com.company.newtask.service.VatService;
 import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
+import com.haulmont.charts.gui.components.charts.PieChart;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileLoader;
 import com.haulmont.cuba.core.global.FileStorageException;
@@ -46,7 +47,6 @@ public class ContractEdit extends AbstractEditor<Contract> {
     @Inject
     private ProcActionsFrame procActionsFrame;
 
-
     @Inject
     private FileMultiUploadField multiUploadField;
     @Inject
@@ -84,7 +84,6 @@ public class ContractEdit extends AbstractEditor<Contract> {
 
         multiUploadField.addFileUploadErrorListener(event ->
                 showNotification("File upload error", NotificationType.HUMANIZED));
-
 
 
     }

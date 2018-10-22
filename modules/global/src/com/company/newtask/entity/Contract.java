@@ -10,6 +10,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.chile.core.annotations.NamePattern;
 import javax.persistence.FetchType;
@@ -72,6 +74,7 @@ public class Contract extends StandardEntity {
     @Column(name = "VAT")
     protected Boolean vat;
 
+    @MetaProperty
     @Column(name = "TOTAL_AMOUNT")
     protected Integer totalAmount;
 
