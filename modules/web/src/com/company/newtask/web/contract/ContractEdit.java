@@ -6,6 +6,8 @@ import com.company.newtask.entity.Stage;
 import com.company.newtask.service.VatService;
 import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 import com.haulmont.charts.gui.components.charts.PieChart;
+import com.haulmont.cuba.core.app.UniqueNumbersAPI;
+import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileLoader;
 import com.haulmont.cuba.core.global.FileStorageException;
@@ -54,15 +56,24 @@ public class ContractEdit extends AbstractEditor<Contract> {
     @Inject
     private DataSupplier dataSupplier;
 
+    @Inject
+    private CollectionDatasource<Invoice, UUID> invoicesDs;
+
+    @Inject
+    private CollectionDatasource<ServiceCompletionCertificate, UUID> serviceCompletionCertificatesDs;
+
+    @Inject
+    UniqueNumbersAPI uniqueNumbersAPI;
+
     @Override
     public void init(Map<String, Object> params) {
         super.init(params);
 
-        contractDs.addItemPropertyChangeListener(e -> {
-            if(e.getProperty().equals("amount") && getItem().getVat()){
-                getItem().setTotalAmount(vatService.getTotalAmount(getItem().getAmount()));
-            }
-        });
+            contractDs.addItemPropertyChangeListener(e -> {
+                if (e.getProperty().equals("amount") && /*getItem().getVat() != null &&*/ getItem().getVat()) {
+                    getItem().setTotalAmount(vatService.getTotalAmount(getItem().getAmount()));
+                }
+            });
 
         multiUploadField.addQueueUploadCompleteListener(() -> {
             for (Map.Entry<UUID, String> entry : multiUploadField.getUploadsMap().entrySet()) {
@@ -116,7 +127,7 @@ public class ContractEdit extends AbstractEditor<Contract> {
 
 
 
-    public void sayGAF(){
+    public void generateDoc(){
 
         Stage stage = stageTable.getSelected().iterator().next();
 
@@ -129,9 +140,9 @@ public class ContractEdit extends AbstractEditor<Contract> {
         invoice.setStage(stage);
 
 
-       stage.setServiceCompletionCertificate(serviceCompletionCertificate);
-       stage.setInvoice(invoice);
 
+        stage.setServiceCompletionCertificate(serviceCompletionCertificate);
+        stage.setInvoice(invoice);
 
     }
 
@@ -149,5 +160,6 @@ public class ContractEdit extends AbstractEditor<Contract> {
                 })
                 .init(PROCESS_CODE, getItem());
     }
+
 
 }

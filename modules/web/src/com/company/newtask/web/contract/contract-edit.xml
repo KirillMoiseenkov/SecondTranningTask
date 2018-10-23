@@ -20,6 +20,18 @@
                 <![CDATA[select e from sys$FileDescriptor e]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="invoicesDs"
+                              class="com.company.newtask.entity.Invoice">
+            <query>
+                <![CDATA[select e from newtask$Invoice e]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="serviceCompletionCertificatesDs"
+                              class="com.company.newtask.entity.ServiceCompletionCertificate">
+            <query>
+                <![CDATA[select e from newtask$ServiceCompletionCertificate e]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -54,7 +66,7 @@
                     <action id="edit"/>
                     <action id="remove"/>
                     <action id="generateCertificateAndInoviceAction"
-                            invoke="sayGAF"/>
+                            invoke="generateDoc"/>
                 </actions>
                 <columns>
                     <column id="name"/>

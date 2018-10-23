@@ -1,5 +1,6 @@
 package com.company.newtask.entity;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
@@ -88,7 +89,10 @@ public class Contract extends StandardEntity {
     @JoinColumn(name = "STATUS_ID")
     protected Status status;
 
-
+    @PostConstruct
+    protected void init(){
+        setVat(true);
+    }
 
     public void setFile(List<FileDescriptor> file) {
         this.file = file;

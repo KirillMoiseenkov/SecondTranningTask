@@ -8,6 +8,8 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.List;
+import javax.persistence.OneToMany;
 
 @NamePattern("%s|name")
 @Table(name = "NEWTASK_ORGANIZATION")
@@ -27,17 +29,17 @@ public class Organization extends StandardEntity {
     @Column(name = "ESCAPE_VAT")
     protected Integer escapeVAT;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONTRACT_ID")
-    protected Contract contract;
+    @OneToMany(mappedBy = "organization")
+    protected List<Contract> contract;
 
-    public void setContract(Contract contract) {
+    public List<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(List<Contract> contract) {
         this.contract = contract;
     }
 
-    public Contract getContract() {
-        return contract;
-    }
 
 
     public void setName(String name) {
