@@ -12,6 +12,8 @@
             <map>
                 <entry key="newtask_VatService"
                        value="com.company.newtask.service.VatService"/>
+                <entry key="newtask_UniqueNumbersCustomService"
+                       value="com.company.newtask.service.UniqueNumbersCustomService"/>
             </map>
         </property>
     </bean>
