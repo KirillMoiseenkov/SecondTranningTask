@@ -51,12 +51,17 @@ public class Stage extends StandardEntity {
     @OnDelete(DeletePolicy.CASCADE)
     @JoinColumn(name = "CONTRACT_ID")
     protected Contract contract;
-
+    
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
     protected Invoice invoice;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "stage")
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @JoinColumn(name = "SERVICE_COMPLETION_CERTIFICATE_ID")
+    @OneToOne(fetch = FetchType.LAZY)
     protected ServiceCompletionCertificate serviceCompletionCertificate;
 
     public Invoice getInvoice() {

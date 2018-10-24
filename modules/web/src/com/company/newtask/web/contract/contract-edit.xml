@@ -38,6 +38,7 @@
     <layout expand="scrollBox"
             spacing="true">
         <scrollBox id="scrollBox"
+                   height="104px"
                    spacing="true">
             <fieldGroup id="fieldGroup"
                         datasource="contractDs">
@@ -53,13 +54,14 @@
                     <field property="totalAmount"/>
                     <field property="customerSingle"/>
                     <field property="performerSingle"/>
+                    <field property="organization"/>
                 </column>
             </fieldGroup>
         </scrollBox>
         <groupBox id="groupBox"
                   spacing="true">
             <table id="stageTable"
-                   height="200px"
+                   height="134px"
                    width="488px">
                 <actions>
                     <action id="create"/>

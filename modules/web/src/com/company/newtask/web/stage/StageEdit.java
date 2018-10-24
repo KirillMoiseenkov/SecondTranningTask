@@ -12,20 +12,4 @@ import javax.inject.Inject;
 
 public class StageEdit extends AbstractEditor<Stage> {
 
-    @Inject
-    private Metadata metadata;
-
-    @Inject
-    private DataManager dataManager;
-
-    public void generateDoc() {
-
-
-        ServiceCompletionCertificate serviceCompletionCertificate = metadata.create(ServiceCompletionCertificate.class);
-        serviceCompletionCertificate.setDescription(getItem().getDescription());
-        serviceCompletionCertificate.setStage(getItem());
-        serviceCompletionCertificate.setNumber(111);
-        getItem().setServiceCompletionCertificate (serviceCompletionCertificate);
-
-    }
 }

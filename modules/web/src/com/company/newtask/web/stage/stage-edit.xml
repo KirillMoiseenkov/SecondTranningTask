@@ -27,7 +27,6 @@
                 <field property="vat"/>
                 <field property="totalAmount"/>
                 <field property="description"/>
-                <field property="serviceCompletionCertificate"/>
             </column>
         </fieldGroup>
         <frame id="windowActions"

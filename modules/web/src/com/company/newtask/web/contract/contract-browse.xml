@@ -39,6 +39,7 @@
             </actions>
             <columns>
                 <column id="customer"/>
+                <column id="organization"/>
                 <column id="performer"/>
                 <column id="number"/>
                 <column id="singleDate"/>

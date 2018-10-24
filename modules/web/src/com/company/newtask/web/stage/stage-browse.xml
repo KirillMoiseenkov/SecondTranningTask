@@ -8,7 +8,7 @@
     <dsContext>
         <groupDatasource id="stagesDs"
                          class="com.company.newtask.entity.Stage"
-                         view="_local">
+                         view="stage-view">
             <query>
                 <![CDATA[select e from newtask$Stage e]]>
             </query>
@@ -32,6 +32,8 @@
             </actions>
             <columns>
                 <column id="name"/>
+                <column id="invoice"/>
+                <column id="serviceCompletionCertificate"/>
                 <column id="dateFrom"/>
                 <column id="dateTo"/>
                 <column id="amount"/>

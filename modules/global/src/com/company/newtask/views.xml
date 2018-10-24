@@ -3,10 +3,17 @@
     <view class="com.company.newtask.entity.Contract"
           extends="_local"
           name="contract-view">
+        <property name="organization"
+                  view="_minimal"/>
     </view>
     <view class="com.company.newtask.entity.Stage"
           extends="_local"
-          name="stage-view"/>
+          name="stage-view">
+        <property name="invoice"
+                  view="_minimal"/>
+        <property name="serviceCompletionCertificate"
+                  view="_minimal"/>
+    </view>
     <view class="com.company.newtask.entity.Contract"
           extends="_local"
           name="contract-view_1">
@@ -20,6 +27,8 @@
         <property name="status"
                   view="_minimal"/>
         <property name="file"
+                  view="_minimal"/>
+        <property name="organization"
                   view="_minimal"/>
     </view>
     <view class="com.company.newtask.entity.Invoice"
@@ -52,4 +61,7 @@
             </property>
         </property>
     </view>
+    <view class="com.company.newtask.entity.Organization"
+          extends="_local"
+          name="organization-view"/>
 </views>

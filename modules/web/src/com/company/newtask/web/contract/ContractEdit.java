@@ -20,10 +20,7 @@ import com.haulmont.cuba.gui.data.Datasource;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -70,6 +67,8 @@ public class ContractEdit extends AbstractEditor<Contract> {
     @Inject
     private CollectionDatasource<ServiceCompletionCertificate, UUID> serviceCompletionCertificatesDs;
 
+
+
     @Inject
     DataManager dataManager;
 
@@ -77,11 +76,8 @@ public class ContractEdit extends AbstractEditor<Contract> {
     public void init(Map<String, Object> params) {
         super.init(params);
 
-  /*      if(uniqueNumbersCustomService.getNextNumber("invoice") == 0)
-            uniqueNumbersCustomService.setCurrentNumber("invoice",long);
-*/
         contractDs.addItemPropertyChangeListener(e -> {
-            if (e.getProperty().equals("amount") && /*getItem().getVat() != null &&*/ getItem().getVat()) {
+            if (e.getProperty().equals("amount") && getItem().getVat() != null && getItem().getVat()) {
                 getItem().setTotalAmount(vatService.getTotalAmount(getItem().getAmount()));
             }
         });
@@ -142,11 +138,11 @@ public class ContractEdit extends AbstractEditor<Contract> {
         Stage stage = stageTable.getSelected().iterator().next();
 
         ServiceCompletionCertificate serviceCompletionCertificate = metadata.create(ServiceCompletionCertificate.class);
-        serviceCompletionCertificate.setNumber(123);
+        serviceCompletionCertificate.setNumber((int) uniqueNumbersCustomService.getNextNumber("ser"));
         serviceCompletionCertificate.setStage(stage);
 
         Invoice invoice = metadata.create(Invoice.class);
-        invoice.setNumber(123);
+        invoice.setNumber((int) uniqueNumbersCustomService.getNextNumber("invoice"));
         invoice.setStage(stage);
 
 
@@ -165,7 +161,15 @@ public class ContractEdit extends AbstractEditor<Contract> {
         stage.setServiceCompletionCertificate(serviceCompletionCertificate);
         stage.setInvoice(invoice);
 
+        CommitContext commitContext = new CommitContext();
+
+        commitContext.getCommitInstances().add(serviceCompletionCertificate);
+
+        commitContext.getCommitInstances().add(invoice);
+
+        getDsContext().getDataSupplier().commit(commitContext);
     }
+
 
     private void initProcActionsFrame() {
         procActionsFrame.initializer()
@@ -182,5 +186,12 @@ public class ContractEdit extends AbstractEditor<Contract> {
                 .init(PROCESS_CODE, getItem());
     }
 
+    @Override
+    protected boolean postCommit(boolean committed, boolean close) {
 
+   //     stageDs.getItems().iterator().next().setAmount(2000);
+
+
+        return super.postCommit(committed, close);
+    }
 }
