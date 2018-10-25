@@ -114,6 +114,14 @@ public class ContractEdit extends AbstractEditor<Contract> {
         if (getItem().getStage() == null) {
             Stage stage = metadata.create(Stage.class);
             stage.setName("Дефолтный этап");
+
+            if(getItem().getDateFrom() != null)
+                stage.setDateFrom(getItem().getDateFrom());
+
+            if(getItem().getDateTo() != null)
+                stage.setDateFrom(getItem().getDateTo());
+
+
             stage.setContract(getItem());
             stageDs.addItem(stage);
         }
@@ -168,17 +176,4 @@ public class ContractEdit extends AbstractEditor<Contract> {
                 .init(PROCESS_CODE, getItem());
     }
 
-    @Override
-    public boolean commit() {
-        System.out.println();
-        return super.commit();
-    }
-
-    @Override
-    protected boolean postCommit(boolean committed, boolean close) {
-
-        System.out.println("123");
-
-        return super.postCommit(committed, close);
-    }
 }
