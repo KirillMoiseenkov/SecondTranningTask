@@ -28,7 +28,7 @@ public class ApprovalEmailBean {
     @Inject
     private Persistence persistence;
 
-    public void sayGaf(UUID entityId){
+    public void sendEmail(UUID entityId){
 
         ProcInstance procInstance;
         try (Transaction tx = persistence.getTransaction()) {

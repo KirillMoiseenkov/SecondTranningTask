@@ -1,20 +1,13 @@
 package com.company.newtask.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.chile.core.annotations.NamePattern;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
-import javax.persistence.OneToOne;
 
 @NamePattern("%s|name")
 @Table(name = "NEWTASK_STAGE")
@@ -54,14 +47,14 @@ public class Stage extends StandardEntity {
     
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "INVOICE_ID")
     protected Invoice invoice;
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
     @JoinColumn(name = "SERVICE_COMPLETION_CERTIFICATE_ID")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     protected ServiceCompletionCertificate serviceCompletionCertificate;
 
     public Invoice getInvoice() {

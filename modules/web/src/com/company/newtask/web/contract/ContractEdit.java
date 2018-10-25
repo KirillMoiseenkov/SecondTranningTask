@@ -56,18 +56,7 @@ public class ContractEdit extends AbstractEditor<Contract> {
     private DataSupplier dataSupplier;
 
     @Inject
-    private UniqueNumbersService uniqueNumbersService;
-
-    @Inject
     private UniqueNumbersCustomService uniqueNumbersCustomService;
-
-    @Inject
-    private CollectionDatasource<Invoice, UUID> invoicesDs;
-
-    @Inject
-    private CollectionDatasource<ServiceCompletionCertificate, UUID> serviceCompletionCertificatesDs;
-
-
 
     @Inject
     DataManager dataManager;
@@ -161,13 +150,6 @@ public class ContractEdit extends AbstractEditor<Contract> {
         stage.setServiceCompletionCertificate(serviceCompletionCertificate);
         stage.setInvoice(invoice);
 
-        CommitContext commitContext = new CommitContext();
-
-        commitContext.getCommitInstances().add(serviceCompletionCertificate);
-
-        commitContext.getCommitInstances().add(invoice);
-
-        getDsContext().getDataSupplier().commit(commitContext);
     }
 
 
@@ -187,10 +169,15 @@ public class ContractEdit extends AbstractEditor<Contract> {
     }
 
     @Override
+    public boolean commit() {
+        System.out.println();
+        return super.commit();
+    }
+
+    @Override
     protected boolean postCommit(boolean committed, boolean close) {
 
-   //     stageDs.getItems().iterator().next().setAmount(2000);
-
+        System.out.println("123");
 
         return super.postCommit(committed, close);
     }
