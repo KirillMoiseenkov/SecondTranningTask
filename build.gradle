@@ -95,6 +95,8 @@ configure(coreModule) {
         provided(servletApi)
         jdbc(postgres)
         testRuntime(postgres)
+        // https://mvnrepository.com/artifact/com.ibm.icu/icu4j
+        compile group: 'com.ibm.icu', name: 'icu4j', version: '63.1'
 
     }
 
